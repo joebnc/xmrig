@@ -32,13 +32,10 @@ jobs:
       - name: Build Docker image
         id: build_image
         run: |
-          docker build "$GITHUB_WORKSPACE" -t ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA --label dockerfile-path="Dockerfile"
+          docker build "$GITHUB_WORKSPACE" -t ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA -t ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:latest --label dockerfile-path="Dockerfile"
 
-      - name: Tag Docker image
-        run: docker tag ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$latest
-        
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig
+        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:latest
 
       - name: Logout from Docker Hub
         run: docker logout
