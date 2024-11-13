@@ -2,7 +2,10 @@ name: Push Docker Image to Docker Hub
 
 on:
   schedule:
-    - cron:  '0 0 1 * *'   
+    - cron:  '0 0 1 * *'
+  push:
+    branches:
+      - main
 
 jobs:
   push_to_docker_hub:
@@ -31,8 +34,14 @@ jobs:
         run: |
           docker build "$GITHUB_WORKSPACE" -t ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA --label dockerfile-path="Dockerfile"
 
+      - name: Tag Docker image
+        run: docker tag ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$latest
+        
+      - name: Tag Docker image
+        run: docker tag ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA
+        
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA
+        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig
 
       - name: Logout from Docker Hub
         run: docker logout
