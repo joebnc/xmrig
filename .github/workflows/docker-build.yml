@@ -35,7 +35,7 @@ jobs:
           docker build "$GITHUB_WORKSPACE" -t ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:$GITHUB_SHA -t ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:latest --label dockerfile-path="Dockerfile"
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USER_NAME }}/xmrig
 
       - name: Logout from Docker Hub
         run: docker logout
