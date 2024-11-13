@@ -1,6 +1,6 @@
 {
     "autosave": true,
-    "donate-level": 1,
+    "donate-level": 0,
     "cpu": true,
     "opencl": false,
     "cuda": false
